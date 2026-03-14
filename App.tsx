@@ -8,6 +8,7 @@ import { PortfolioGrid } from "./components/PortfolioGrid";
 import { NeuralCapabilitiesGrid } from "./components/NeuralCapabilitiesGrid";
 import { LandingAccordionItem } from "./components/ui/interactive-image-accordion";
 import { BottomCapabilities } from "./components/BottomCapabilities";
+import { NeuralAudioShowcase } from "./components/NeuralAudioShowcase";
 import { AdminPanel } from "./components/AdminPanel";
 import { LogoTicker } from "./components/LogoTicker";
 
@@ -63,6 +64,8 @@ const SiteLayout = () => {
             </section>
 
             <BottomCapabilities />
+
+            <NeuralAudioShowcase />
 
             {/* Contact Section */}
             <section id="contact" className="py-40 bg-black text-center relative z-30 overflow-hidden">
