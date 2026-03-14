@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import Hls from "hls.js";
 import { motion } from "motion/react";
 import { Zap, ArrowRight } from "lucide-react";
-import { InfiniteSlider } from "./ui/infinite-slider";
 import { useContent } from "../lib/ContentContext";
 
 export const BottomCapabilities = () => {
@@ -71,14 +70,7 @@ export const BottomCapabilities = () => {
                 </video>
             </div>
 
-            {/* Logo Cloud */}
-            <div className="w-full py-12 bg-black/40 backdrop-blur-sm border-t border-white/5 relative z-20">
-                <div className="container mx-auto px-6 flex flex-col md:flex-row items-center gap-8">
-                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 whitespace-nowrap">Powering the best teams</span>
-                    <div className="hidden md:block w-px h-8 bg-white/5" />
-                    <InfiniteSlider items={content.logos} className="flex-1 overflow-hidden" />
-                </div>
-            </div>
+
         </section>
     );
 };
