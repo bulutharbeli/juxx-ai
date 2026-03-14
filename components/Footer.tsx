@@ -13,26 +13,35 @@ export const Footer = () => {
 
                 {/* Futuristic HUD Map */}
                 <div className="md:col-span-2 lg:col-span-2 relative group">
-                    <div className="absolute -top-2 -left-2 w-4 h-4 border-t-2 border-l-2 border-primary-gradient opacity-40" />
-                    <div className="absolute -top-2 -right-2 w-4 h-4 border-t-2 border-r-2 border-primary-gradient opacity-40" />
-                    <div className="absolute -bottom-2 -left-2 w-4 h-4 border-b-2 border-l-2 border-primary-gradient opacity-40" />
-                    <div className="absolute -bottom-2 -right-2 w-4 h-4 border-b-2 border-r-2 border-primary-gradient opacity-40" />
+                    <div className="absolute -top-3 -left-3 w-6 h-6 border-t border-l border-primary-gradient opacity-60 z-30" />
+                    <div className="absolute -bottom-3 -right-3 w-6 h-6 border-b border-r border-primary-gradient opacity-60 z-30" />
                     
-                    <div className="relative w-full h-[180px] rounded-lg overflow-hidden border border-white/10 bg-white/[0.02]">
-                        <div className="absolute inset-0 scanner-beam opacity-10 pointer-events-none z-10" />
-                        <div className="absolute top-2 left-2 z-20 flex items-center gap-2">
-                             <div className="w-1.5 h-1.5 rounded-full bg-primary-gradient animate-pulse" />
-                             <span className="text-[8px] font-heading tracking-widest text-white/40 uppercase">HQ_LOCATION // ANTALYA</span>
+                    <div className="relative w-full h-[200px] rounded-sm overflow-hidden border border-white/5 bg-black/40 backdrop-blur-md">
+                        {/* HUD Overlays */}
+                        <div className="absolute inset-0 scanner-beam opacity-[0.15] pointer-events-none z-20" />
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_40%,rgba(0,0,0,0.4)_100%)] pointer-events-none z-10" />
+                        
+                        {/* Glass Reflection Effect */}
+                        <div className="absolute -top-full -left-full w-[200%] h-[200%] bg-gradient-to-br from-white/5 via-transparent to-transparent rotate-45 pointer-events-none z-20 opacity-30 group-hover:translate-x-1/2 group-hover:translate-y-1/2 transition-transform duration-1000" />
+
+                        <div className="absolute top-3 left-3 z-30 flex items-center gap-2">
+                             <div className="w-1 h-1 rounded-full bg-[#FA93FA] animate-ping" />
+                             <span className="text-[7px] font-heading tracking-[0.4em] text-white/30 uppercase mix-blend-difference">SIGNAL_FOUND // COORDINATES_SET</span>
                         </div>
+
+                        <div className="absolute bottom-3 right-3 z-30 text-[7px] font-heading text-white/20 tracking-tighter text-right">
+                            36.8826° N<br/>30.7210° E
+                        </div>
+
                         <iframe 
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3191.3214681738364!2d30.721002775306882!3d36.88265716304805!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14c39ab27575d7df%3A0xecafc08fe4678f48!2zTWV5ZGFua2F2YcSfxLEsIDE1NTYuIFNrLiBObzo0LCAwNzIwMCBNdXJhdHBhxZ9hL0FudGFseWE!5e0!3m2!1sen!2str!4v1773521679354!5m2!1sen!2str" 
                             width="100%" 
                             height="100%" 
-                            style={{ border: 0, filter: 'grayscale(1) invert(0.9) contrast(1.2)' }} 
+                            style={{ border: 0, filter: 'grayscale(1) invert(0.9) contrast(1.1) brightness(0.8) opacity(0.3)' }} 
                             allowFullScreen={true}
                             loading="lazy" 
                             referrerPolicy="no-referrer-when-downgrade"
-                            className="opacity-60 hover:opacity-100 transition-opacity duration-500"
+                            className="group-hover:opacity-60 transition-all duration-700 scale-110 group-hover:scale-100"
                         />
                     </div>
                 </div>
