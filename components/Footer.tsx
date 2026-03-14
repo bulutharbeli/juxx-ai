@@ -66,11 +66,11 @@ export const Footer = () => {
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3191.3214681738364!2d30.721002775306882!3d36.88265716304805!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14c39ab27575d7df%3A0xecafc08fe4678f48!2zTWV5ZGFua2F2YcSfxLEsIDE1NTYuIFNrLiBObzo0LCAwNzIwMCBNdXJhdHBhxZ9hL0FudGFseWE!5e0!3m2!1sen!2str!4v1773521679354!5m2!1sen!2str" 
                             width="100%" 
                             height="100%" 
-                            style={{ border: 0, filter: 'grayscale(1) invert(0.9) contrast(1.1) brightness(0.8) opacity(0.2)' }} 
+                            style={{ border: 0, filter: 'grayscale(1) invert(0.95) contrast(1.2) brightness(1.1)' }} 
                             allowFullScreen={true}
                             loading="lazy" 
                             referrerPolicy="no-referrer-when-downgrade"
-                            className="group-hover:opacity-40 transition-all duration-700 scale-125 group-hover:scale-110"
+                            className="opacity-50 group-hover:opacity-100 transition-all duration-700 scale-100"
                         />
                     </div>
                 </div>
