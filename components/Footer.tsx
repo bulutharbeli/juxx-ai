@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { motion } from "motion/react";
 
 export const Footer = () => {
     return (
@@ -17,6 +18,34 @@ export const Footer = () => {
                     <div className="absolute -bottom-3 -right-3 w-6 h-6 border-b border-r border-primary-gradient opacity-60 z-30" />
                     
                     <div className="relative w-full h-[200px] rounded-sm overflow-hidden border border-white/5 bg-black/40 backdrop-blur-md">
+                        {/* Target Crosshair Effect */}
+                        <div className="absolute inset-0 z-20 pointer-events-none flex items-center justify-center">
+                            <motion.div 
+                                animate={{ 
+                                    scale: [1, 1.1, 1],
+                                    opacity: [0.3, 0.6, 0.3]
+                                }}
+                                transition={{ 
+                                    duration: 2,
+                                    repeat: Infinity,
+                                    ease: "easeInOut"
+                                }}
+                                className="relative w-12 h-12 flex items-center justify-center"
+                            >
+                                {/* Center Dot */}
+                                <div className="w-1.5 h-1.5 rounded-full bg-[#FA93FA]" />
+                                
+                                {/* Brackets/Target Lines */}
+                                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-3 bg-[#FA93FA]/50" />
+                                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1px] h-3 bg-[#FA93FA]/50" />
+                                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-[1px] bg-[#FA93FA]/50" />
+                                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-[1px] bg-[#FA93FA]/50" />
+                                
+                                {/* Outer pulsing ring */}
+                                <div className="absolute inset-0 border border-[#FA93FA]/20 rounded-full animate-ping" />
+                            </motion.div>
+                        </div>
+
                         {/* HUD Overlays */}
                         <div className="absolute inset-0 scanner-beam opacity-[0.15] pointer-events-none z-20" />
                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_40%,rgba(0,0,0,0.4)_100%)] pointer-events-none z-10" />
@@ -37,11 +66,11 @@ export const Footer = () => {
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3191.3214681738364!2d30.721002775306882!3d36.88265716304805!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14c39ab27575d7df%3A0xecafc08fe4678f48!2zTWV5ZGFua2F2YcSfxLEsIDE1NTYuIFNrLiBObzo0LCAwNzIwMCBNdXJhdHBhxZ9hL0FudGFseWE!5e0!3m2!1sen!2str!4v1773521679354!5m2!1sen!2str" 
                             width="100%" 
                             height="100%" 
-                            style={{ border: 0, filter: 'grayscale(1) invert(0.9) contrast(1.1) brightness(0.8) opacity(0.3)' }} 
+                            style={{ border: 0, filter: 'grayscale(1) invert(0.9) contrast(1.1) brightness(0.8) opacity(0.2)' }} 
                             allowFullScreen={true}
                             loading="lazy" 
                             referrerPolicy="no-referrer-when-downgrade"
-                            className="group-hover:opacity-60 transition-all duration-700 scale-110 group-hover:scale-100"
+                            className="group-hover:opacity-40 transition-all duration-700 scale-125 group-hover:scale-110"
                         />
                     </div>
                 </div>
