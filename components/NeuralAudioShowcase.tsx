@@ -63,7 +63,7 @@ export const NeuralAudioShowcase = () => {
     };
 
     return (
-        <section className="py-24 bg-black relative overflow-hidden border-t border-white/5">
+        <section className="py-8 bg-black relative overflow-hidden border-t border-white/5">
             {/* Background HUD Elements */}
             <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-primary-gradient/5 to-transparent pointer-events-none" />
             

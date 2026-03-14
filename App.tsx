@@ -68,7 +68,7 @@ const SiteLayout = () => {
             <NeuralAudioShowcase />
 
             {/* Contact Section */}
-            <section id="contact" className="py-40 bg-black text-center relative z-30 overflow-hidden">
+            <section id="contact" className="pt-8 pb-40 bg-black text-center relative z-30 overflow-hidden">
                 <div className="container mx-auto px-6">
                     <span className="text-white/20 uppercase tracking-[0.5em] text-[10px] mb-6 block font-heading">READY TO REDEFINE YOUR VISUALS?</span>
                     <h2 className="text-[10vw] font-black font-heading leading-none tracking-tighter mb-12 uppercase">
