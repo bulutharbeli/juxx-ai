@@ -1,0 +1,95 @@
+{
+    "hero": {
+        "title": "NEURAL CREATIVE",
+        "description": "// JUXX AI — AN AI-FIRST CREATIVE STUDIO\\nWE BLEND COMPUTATIONAL LOGIC WITH VISUAL ARTISTRY TO DESIGN FOR THE NEXT ERA OF BRAND IDENTITY.",
+        "splineUrl": "https://prod.spline.design/H25fbR-s-k6IA02N/scene.splinecode"
+    },
+    "sections": {
+        "portfolio": {
+            "badge": "// SELECTED WORKS",
+            "title": "CREATIVE\\nREVOLUTION"
+        },
+        "capabilities": {
+            "badge": "CAPABILITIES",
+            "title": "NEURAL CORE",
+            "subtitle": "ACCELERATE\\nNEURAL TASKS",
+            "description": "We deploy high-performance generative models on-device, bypassing cloud latency with elite-tier edge engineering.",
+            "label": "CORE CAPABILITIES",
+            "buttonText": "START PROJECT"
+        }
+    },
+    "portfolio": [
+        {
+            "id": 1,
+            "title": "NEURAL IDENTITY",
+            "category": "GEN BRANDING",
+            "year": "2026",
+            "imageUrl": "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2074&auto=format&fit=crop"
+        },
+        {
+            "id": 2,
+            "title": "AURA INTERFACE",
+            "category": "NEURAL UI",
+            "year": "2026",
+            "imageUrl": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop"
+        },
+        {
+            "id": 3,
+            "title": "KINETIC LOGIC",
+            "category": "AI MOTION",
+            "year": "2026",
+            "imageUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2064&auto=format&fit=crop"
+        },
+        {
+            "id": 4,
+            "title": "SYNTHETIC ART",
+            "category": "ALGORITHMIC",
+            "year": "2026",
+            "imageUrl": "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=2070&auto=format&fit=crop"
+        }
+    ],
+    "capabilities": [
+        {
+            "id": 1,
+            "title": "Voice Assistant",
+            "imageUrl": "https://images.unsplash.com/photo-1589254065878-42c9da997008?q=80&w=2070&auto=format&fit=crop"
+        },
+        {
+            "id": 2,
+            "title": "Visual Computing",
+            "imageUrl": "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2070&auto=format&fit=crop"
+        },
+        {
+            "id": 3,
+            "title": "Neural Interfaces",
+            "imageUrl": "https://images.unsplash.com/photo-1507413245164-6160d8298b31?q=80&w=2070&auto=format&fit=crop"
+        },
+        {
+            "id": 4,
+            "title": "Autonomous Logic",
+            "imageUrl": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2070&auto=format&fit=crop"
+        },
+        {
+            "id": 5,
+            "title": "Matrix Rendering",
+            "imageUrl": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2070&auto=format&fit=crop"
+        }
+    ],
+    "logos": [
+        "https://html.tailus.io/blocks/customers/openai.svg",
+        "https://html.tailus.io/blocks/customers/nvidia.svg",
+        "https://html.tailus.io/blocks/customers/github.svg",
+        "https://html.tailus.io/blocks/customers/google.svg",
+        "https://html.tailus.io/blocks/customers/microsoft.svg",
+        "https://html.tailus.io/blocks/customers/amazon.svg"
+    ],
+    "footerAction": {
+        "headline": "YOUR VISION. OUR DIGITAL REALITY.",
+        "subheadline": "We turn bold ideas into modern designs that don't just look amazing, they grow your business fast.",
+        "videoUrl": "https://customer-cbeadsgr09pnsezs.cloudflarestream.com/697945ca6b876878dba3b23fbd2f1561/manifest/video.m3u8"
+    },
+    "contact": {
+        "email": "hello@juxx.ai",
+        "headline": "GET IN TOUCH"
+    }
+}
