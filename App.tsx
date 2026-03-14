@@ -46,7 +46,7 @@ const SiteLayout = () => {
             <LogoTicker />
 
             {/* Capabilities Section */}
-            <section id="works" className="pt-16 pb-12 px-6 relative z-30">
+            <section id="works" className="pt-16 pb-0 px-6 relative z-30">
                 <div className="container mx-auto">
                     <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-4">
                         <div>

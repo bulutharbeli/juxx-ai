@@ -26,7 +26,7 @@ export const BottomCapabilities = () => {
     if (!content) return null;
 
     return (
-        <section className="relative bg-[#010101] pt-12 pb-8 border-t border-white/5 overflow-hidden">
+        <section className="relative bg-[#010101] pt-0 pb-8 overflow-hidden">
             <div className="container mx-auto px-6 relative z-20">
                 <div className="flex flex-col items-center text-center">
                     <motion.div
