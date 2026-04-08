@@ -11,15 +11,20 @@ import { BottomCapabilities } from "./components/BottomCapabilities";
 import { NeuralAudioShowcase } from "./components/NeuralAudioShowcase";
 import { AdminPanel } from "./components/AdminPanel";
 import { LogoTicker } from "./components/LogoTicker";
+import gsap from "gsap";
+import { ScrollToPlugin } from "gsap/all";
 
 import React from "react";
 
+gsap.registerPlugin(ScrollToPlugin);
+
 const SiteLayout = () => {
     const { content } = useContent();
+
     if (!content) return null;
 
     return (
-        <div className="bg-[#010101] text-white selection:bg-[#C967E8] selection:text-white">
+        <div className="bg-[#010101] text-white selection:bg-[#C967E8] selection:text-white font-sans relative">
             <SplineHero />
 
             {/* Portfolio Section */}
@@ -85,6 +90,27 @@ const SiteLayout = () => {
             </section>
 
             <Footer />
+
+            {/* Global Scroll to Top Button */}
+            <button 
+                onClick={() => gsap.to(window, { duration: 1.5, scrollTo: 0, ease: "power4.inOut" })}
+                className="fixed bottom-10 right-10 z-[100] bg-white/5 hover:bg-white/10 backdrop-blur-xl border border-white/10 rounded-full p-4 transition-all group"
+            >
+                <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    width="24" 
+                    height="24" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    className="text-white group-hover:-translate-y-1 transition-transform"
+                >
+                    <path d="m18 15-6-6-6 6"/>
+                </svg>
+            </button>
         </div>
     );
 };
