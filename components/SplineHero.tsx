@@ -14,9 +14,6 @@ export const SplineHero = () => {
         offset: ["start start", "end end"]
     });
 
-    // Reversed mapping for frame index in parent to pass to child if needed
-    // or we can let child handle the transform. Let's pass the raw progress.
-    const contentOpacity = useTransform(scrollYProgress, [0, 0.9], [1, 1]); // Keep content visible
     const contentY = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
     return (

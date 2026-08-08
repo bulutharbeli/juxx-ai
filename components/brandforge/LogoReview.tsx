@@ -27,7 +27,7 @@ const LogoReview: React.FC<LogoReviewProps> = ({ logoUrls, mockupOptions, onConf
   const [editColor, setEditColor] = useState<string>("#000000");
   const [isColorOverridden, setIsColorOverridden] = useState<boolean>(false);
   const [removeBg, setRemoveBg] = useState<boolean>(true);
-  const [canvasBg, setCanvasBg] = useState<string>('transparent');
+  const [canvasBg] = useState<string>('transparent');
 
   // Refine Prompt State
   const [refineInstruction, setRefineInstruction] = useState("");

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { LandingAccordionItem } from './components/ui/interactive-image-accordion.tsx';
+import { LandingAccordionItem } from '../components/ui/interactive-image-accordion';
 
 // Mount the accordion into the specific container
 const container = document.getElementById('accordion-root');

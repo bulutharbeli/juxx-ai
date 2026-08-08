@@ -1,8 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Hls from "hls.js";
 import { motion } from "motion/react";
-import { Zap, ArrowRight, Circle } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Zap, ArrowRight } from "lucide-react";
 import { InfiniteSlider } from "./ui/infinite-slider";
 
 const logos = [

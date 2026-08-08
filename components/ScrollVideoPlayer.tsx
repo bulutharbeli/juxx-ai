@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { MotionValue, useTransform } from 'framer-motion';
 
 const ZOOM_FACTOR = 1.35;
@@ -7,7 +7,7 @@ const FRAME_COUNT = 470;
 
 const getFramePath = (index: number) => {
     const formattedIndex = index.toString().padStart(5, '0');
-    return `/frames/Comp 1/frames_${formattedIndex}.jpg`;
+    return `/frames/comp1/frames_${formattedIndex}.jpg`;
 };
 
 interface ScrollVideoPlayerProps {

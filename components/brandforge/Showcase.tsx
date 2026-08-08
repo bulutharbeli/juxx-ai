@@ -185,7 +185,7 @@ const Showcase: React.FC<ShowcaseProps> = ({ images, onRestart, onRegenerateMock
         )}
 
         {/* Mockups */}
-        {mockups.map((mockup, idx) => (
+        {mockups.map((mockup) => (
           <div key={mockup.id} className="relative group rounded-3xl overflow-hidden bg-black/40 border border-white/10 flex flex-col shadow-2xl">
 
             {/* Edit Overlay */}
