@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { MotionValue, useTransform } from 'framer-motion';
 
 const ZOOM_FACTOR = 1.35;
-// The folder has up to 470 frames, let's use all of them for maximum smoothness
 const FRAME_COUNT = 470;
+// Load initial 10 frames to unlock the screen instantly (<300ms)
+const INITIAL_BATCH_SIZE = 10;
 
 const getFramePath = (index: number) => {
     const formattedIndex = index.toString().padStart(5, '0');
@@ -16,22 +17,37 @@ interface ScrollVideoPlayerProps {
 
 export const ScrollVideoPlayer: React.FC<ScrollVideoPlayerProps> = ({ progress }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const imagesRef = useRef<HTMLImageElement[]>([]);
+    const imagesRef = useRef<(HTMLImageElement | null)[]>(new Array(FRAME_COUNT).fill(null));
+    const loadedFlagsRef = useRef<boolean[]>(new Array(FRAME_COUNT).fill(false));
     const [isLoading, setIsLoading] = useState(true);
-    const [loadingProgress, setLoadingProgress] = useState(0);
 
     // Map scroll progress (0 to 1) to frame index (0 to 469)
-    // Downscroll moves from frame 0 to 469
     const frameIndexValue = useTransform(progress, [0, 1], [0, FRAME_COUNT - 1]);
 
-    const drawFrame = useCallback((index: number) => {
+    // Find the best available frame index (target or nearest loaded neighbor)
+    const getBestFrameIndex = useCallback((targetIndex: number): number => {
+        if (loadedFlagsRef.current[targetIndex]) return targetIndex;
+
+        // Search outwards for nearest loaded frame
+        for (let delta = 1; delta < FRAME_COUNT; delta++) {
+            const prev = targetIndex - delta;
+            if (prev >= 0 && loadedFlagsRef.current[prev]) return prev;
+            const next = targetIndex + delta;
+            if (next < FRAME_COUNT && loadedFlagsRef.current[next]) return next;
+        }
+
+        return targetIndex;
+    }, []);
+
+    const drawFrame = useCallback((targetIndex: number) => {
         const canvas = canvasRef.current;
-        if (!canvas || imagesRef.current.length === 0) return;
+        if (!canvas) return;
 
         const ctx = canvas.getContext('2d', { alpha: false });
         if (!ctx) return;
 
-        const img = imagesRef.current[index];
+        const bestIndex = getBestFrameIndex(targetIndex);
+        const img = imagesRef.current[bestIndex];
         if (!img || !img.complete) return;
 
         const { width, height } = canvas;
@@ -55,52 +71,91 @@ export const ScrollVideoPlayer: React.FC<ScrollVideoPlayerProps> = ({ progress }
         offsetY = (height - drawHeight) / 2;
 
         ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
-    }, []);
+    }, [getBestFrameIndex]);
 
-    // Effect to handle canvas updates when scroll progress changes
+    // Handle scroll progress updates
     useEffect(() => {
         const unsubscribe = frameIndexValue.on("change", (latest) => {
-            if (!isLoading) {
-                const index = Math.max(0, Math.min(FRAME_COUNT - 1, Math.floor(latest)));
-                drawFrame(index);
-            }
+            const index = Math.max(0, Math.min(FRAME_COUNT - 1, Math.floor(latest)));
+            drawFrame(index);
         });
         return () => unsubscribe();
-    }, [frameIndexValue, isLoading, drawFrame]);
+    }, [frameIndexValue, drawFrame]);
 
-    // Preloading Logic for all 470 frames
+    // Progressive loading logic
     useEffect(() => {
-        let loadedCount = 0;
-        const images: HTMLImageElement[] = [];
+        let isCancelled = false;
+        imagesRef.current = new Array(FRAME_COUNT).fill(null);
+        loadedFlagsRef.current = new Array(FRAME_COUNT).fill(false);
 
-        for (let i = 0; i < FRAME_COUNT; i++) {
-            const img = new Image();
-            img.src = getFramePath(i);
-            img.onload = () => {
-                loadedCount++;
-                setLoadingProgress(Math.round((loadedCount / FRAME_COUNT) * 100));
-                if (loadedCount === FRAME_COUNT) {
-                    setIsLoading(false);
-                    // Draw initial frame based on current scroll
-                    setTimeout(() => drawFrame(Math.floor(frameIndexValue.get())), 100);
+        const loadSingleFrame = (index: number): Promise<void> => {
+            return new Promise((resolve) => {
+                if (loadedFlagsRef.current[index]) {
+                    resolve();
+                    return;
                 }
-            };
-            // Error handling to prevent loading screen from hanging if a frame is missing
-            img.onerror = () => {
-                loadedCount++;
-                if (loadedCount === FRAME_COUNT) {
-                    setIsLoading(false);
-                }
-            };
-            images.push(img);
-        }
-        imagesRef.current = images;
+                const img = new Image();
+                img.src = getFramePath(index);
+                img.onload = () => {
+                    if (!isCancelled) {
+                        imagesRef.current[index] = img;
+                        loadedFlagsRef.current[index] = true;
+                    }
+                    resolve();
+                };
+                img.onerror = () => resolve();
+            });
+        };
+
+        const startProgressiveLoad = async () => {
+            // Step 1: Load initial batch immediately for instant page display
+            const initialPromises: Promise<void>[] = [];
+            for (let i = 0; i < Math.min(INITIAL_BATCH_SIZE, FRAME_COUNT); i++) {
+                initialPromises.push(loadSingleFrame(i));
+            }
+            await Promise.all(initialPromises);
+
+            if (isCancelled) return;
+
+            // Instantly unblock page load
+            setIsLoading(false);
+            setTimeout(() => drawFrame(Math.floor(frameIndexValue.get())), 50);
+
+            // Step 2: Load keyframes across timeline (every 5th frame)
+            const keyframeBatch: number[] = [];
+            for (let i = INITIAL_BATCH_SIZE; i < FRAME_COUNT; i += 5) {
+                keyframeBatch.push(i);
+            }
+            for (let i = 0; i < keyframeBatch.length; i += 10) {
+                if (isCancelled) return;
+                const chunk = keyframeBatch.slice(i, i + 10);
+                await Promise.all(chunk.map(idx => loadSingleFrame(idx)));
+            }
+
+            // Step 3: Fill in remaining frames in background
+            const remaining: number[] = [];
+            for (let i = 0; i < FRAME_COUNT; i++) {
+                if (!loadedFlagsRef.current[i]) remaining.push(i);
+            }
+
+            for (let i = 0; i < remaining.length; i += 10) {
+                if (isCancelled) return;
+                const chunk = remaining.slice(i, i + 10);
+                await Promise.all(chunk.map(idx => loadSingleFrame(idx)));
+            }
+        };
+
+        startProgressiveLoad();
+
+        return () => {
+            isCancelled = true;
+        };
     }, [drawFrame, frameIndexValue]);
 
     // Handle Resize
     useEffect(() => {
         const handleResize = () => {
-            if (canvasRef.current && !isLoading) {
+            if (canvasRef.current) {
                 canvasRef.current.width = window.innerWidth;
                 canvasRef.current.height = window.innerHeight;
                 drawFrame(Math.floor(frameIndexValue.get()));
@@ -110,7 +165,7 @@ export const ScrollVideoPlayer: React.FC<ScrollVideoPlayerProps> = ({ progress }
         window.addEventListener('resize', handleResize);
         handleResize();
         return () => window.removeEventListener('resize', handleResize);
-    }, [drawFrame, frameIndexValue, isLoading]);
+    }, [drawFrame, frameIndexValue]);
 
     return (
         <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none bg-black">
@@ -118,17 +173,17 @@ export const ScrollVideoPlayer: React.FC<ScrollVideoPlayerProps> = ({ progress }
                 <div className="absolute inset-0 z-[100] flex flex-col items-center justify-center bg-black">
                     <div className="w-48 h-[1px] bg-white/10 relative overflow-hidden">
                         <div 
-                            className="absolute inset-y-0 left-0 bg-white transition-all duration-300"
-                            style={{ width: `${loadingProgress}%` }}
+                            className="absolute inset-y-0 left-0 bg-white transition-all duration-300 animate-pulse w-full"
                         />
                     </div>
                 </div>
             )}
             <canvas
                 ref={canvasRef}
-                className="w-full h-full block"
+                className="w-full h-full block transition-opacity duration-500"
                 style={{ opacity: isLoading ? 0 : 1 }}
             />
         </div>
     );
 };
+
